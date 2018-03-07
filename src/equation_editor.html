@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="/node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="mathquill.css">
+  <link rel="stylesheet" type="text/css" href="equation_editor.css">
+  <script type="text/javascript" src="/node_modules/detect-mobile-browser/detect-browser.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.js"></script>
+  <script type="text/javascript" src="mathquill.min.js"></script>
+  <script type="text/javascript" src="equation_editor.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script type="text/javascript" src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+<body class="equation-editor">
+  <script type="text/javascript">
+    var params = top.tinymce.activeEditor.windowManager.getParams();
+    var existingLatex = params['existing_latex'];
+
+    var equationEditor = new EquationEditor.EquationEditorView(null, {
+      $el: $('.equation-editor'),
+      existingLatex: existingLatex,
+      restrictions: top.tinymce.equationEditorRestrictions,
+      editor: top.tinymce.activeEditor,
+      inline: false
+    }).render();
+
+    params['latexInput'] = equationEditor;
+    top.tinymce.activeEditor.windowManager.setParams(params);
+  </script>
+</body>
+</html>

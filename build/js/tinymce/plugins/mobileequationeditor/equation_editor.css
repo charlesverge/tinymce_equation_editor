@@ -1,0 +1,148 @@
+@media (max-width: 800px) {
+  .equation-editor div.mx-1 {
+    margin-left: 0.1rem !important;
+    margin-right: 0.1rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .equation-editor div.mx-1 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .equation-editor .math-render.btn {
+    padding: 0;
+    margin: 0;
+  }
+
+  .equation-editor button.oversized {
+    font-size: 0.7em;
+    width: 95%;
+    height: 95%;
+  }
+}
+
+@media (max-width: 400px) {
+  .equation-editor div.mx-1 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .equation-editor div.col {
+    margin-left: 2px !important;
+    margin-right: 1px !important;
+  }
+
+  .equation-editor .math-render .btn {
+    font-size: 0.7rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  .equation-editor .bottombtns .btn {
+    font-size: 0.9rem;
+    padding: 0.3rem;
+  }
+}
+
+@media (max-width: 325px) {
+  .equation-editor div.col {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .equation-editor .bottombtns .btn {
+    font-size: 0.8rem;
+    padding: 0.3rem;
+  }
+
+}
+
+
+.equation-editor button.math-render {
+  width: 95%;
+  height: 95%;
+}
+
+.equation-editor .math-render {
+  min-height: 35px;
+  min-width: 30px;
+}
+
+.equation-editor .menu {
+  margin: .2em 0 0.2rem 0;
+  font-size: 1rem;
+}
+
+.equation-editor .std3hw {
+  height: 3rem;
+  width: 100%;
+  padding: 0;
+}
+
+.equation-editor .func {
+  height: 97%;
+  margin: .2em 0 0.2rem 0;
+  min-width: 25px;
+  font-size: 1rem;
+  padding: 0.6rem 0.6rem 0.6rem 0.6rem;
+}
+
+.equation-editor .container {
+  padding: 0;
+}
+
+.fixedbottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    z-index: 1000;
+    background: white;
+    box-sizing: border-box;
+}
+
+.equation-editor button.math-render {
+  height: 3rem;
+}
+
+.equation-editor .oversizedcenter button {
+  padding: 0;
+}
+
+.equation-editor .spacer {
+  width: 15px;
+}
+
+.equation-editor div.smbtn button  {
+  font-size: 0.8rem;
+  padding: 0;
+}
+
+.equation-editor div.xsmbtn button  {
+  font-size: 0.6rem;
+  padding: 0;
+}
+
+.btn-submenu {
+  width: 100%;
+}
+
+.popover .oversizedcenter button span.mq-root-block {
+  overflow: visible;
+}
+
+.equation-editor div.oversized button {
+  padding: 0 !important;
+}
+
+.equation-editor .eq-delete {
+  background-image: url('glyphicons_free/glyphicons/png/glyphicons-257-delete.png');
+  width: 100%;
+  height: 3rem;
+  background-repeat: no-repeat;
+  background-position: center;
+}
