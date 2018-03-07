@@ -5,8 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" type="text/css" href="../build/js/tinymce/plugins/mobileequationeditor/mathquill.css">
   <link rel="stylesheet" type="text/css" href="../build/js/tinymce/plugins/mobileequationeditor/equation_editor.css">
+  <link rel="stylesheet" type="text/css" href="../build/js/tinymce/plugins/mobileequationeditor/mathquill.css">
   <script type="text/javascript" src="/node_modules/detect-mobile-browser/detect-browser.js"></script>
   <script src="/node_modules/babel-polyfill/dist/polyfill.min.js"></script>
   <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.js"></script>
@@ -16,7 +16,7 @@
   <script type="text/javascript" src="../build/js/tinymce/tinymce.js"></script>
   <script type="text/javascript">
     tinymce.init({
-      inline: false,
+      inline: true,
       theme: 'modern',
       selector: '.inlineedit',
       plugins: 'mobileequationeditor code table',
@@ -24,20 +24,20 @@
       toolbar: [
         'bold italic underline | bullist numlist | subscript superscript | alignleft aligncenter alignright | mobileequationeditor code table'
       ],
-      equationeditor_inline: false
+      equationeditor_inline: true
     });
   </script>
 </head>
 <body>
 <h1>Test editor</h1>
 <p>Click the area bellow to edit</p>
-  <textarea class="inlineedit" style="wdith: 100%; height: 400px">
+  <div class="inlineedit" style="wdith: 100%; height: 400px">
 <p>Enter your equation here by clicking the f(x) button above, click on the equation to edit with the same interface.</p>
 <p>$$4x^3+2x^2+9x-10=y$$</p>
 <p>To enter in latex directly use the the <strong>$$</strong> tags. To render view the source or save the document and reload. For example <strong>$$</strong>f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi<strong>$$</strong></p>
 <p>$$f\left(x\right)\ =\int_{_{-\infty}}^{\infty}\hat{f\left(\xi\right)e^{2\pi i\xi x}\ \ d\xi}$$</p>
 <p>To use double dollar signs in the content and not have them render as an equation make them bold, italic or another font. <b>$$</b> Then they will be ignored</p>
-</textarea>
+</div>
 
 </body>
 </html>

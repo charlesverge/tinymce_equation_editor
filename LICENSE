@@ -1,6 +1,9 @@
 The MIT License (MIT)
 
-Copyright (c) 2014 Foraker
+Original work Copyleft 2012 Ian and Han https://github.com/laughinghan/tinymce_mathquill_plugin
+Modified work Copyright (c) 2014 Foraker github.com/foraker/tinymce_equation_editor
+Modified work Copyright (c) 2018 Charles Verge github.com/foraker/tinymce_mobileequationeditor
+
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,23 +1,27 @@
 {
-  "name": "tinymce_equation_editor",
-  "version": "1.0.0",
-  "author": "Foraker Labs",
-  "description": "A TinyMCE plugin for editing equations using Mathquill",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/foraker/tinymce_equation_editor/raw/master/LICENSE"
-    }
-  ],
+  "name": "tinymce_mobileequationeditor",
+  "version": "2.0.0",
+  "author": "Charles Verge",
+  "description": "A TinyMCE plugin for editing equations using Mathquill with a Mobile interface",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/foraker/tinymce_equation_editor.git"
+    "url": "https://github.com/charlesverge/tinymce_mobileequationeditor.git"
   },
   "devDependencies": {
-    "gulp": ">=3.8.7",
-    "gulp-coffee": ">=2.1.2",
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "bootstrap": "^4.0.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
     "gulp-concat": ">=2.3.4",
+    "gulp-copy": "^1.1.0",
     "gulp-uglify": ">=0.3.1",
-    "gulp-zip": ">=2.0.1"
-  }
+    "gulp-zip": ">=2.0.1",
+    "mathquill": "^0.10.1-a",
+    "popper.js": "^1.12.9",
+    "tinymce": "^4.7.9"
+  },
+  "dependencies": {}
 }
