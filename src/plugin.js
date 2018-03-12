@@ -147,6 +147,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
       // Chrome on android rarely fires the click event but always the touchend.
       $(editor.getDoc()).on('touchend', 'span.mathlatex', function (e) {
         e.stopPropagation();
+        e.preventDefault();
         if (editing) {
           return;
         }
@@ -157,6 +158,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
 
       $(editor.getDoc()).on('click', 'span.mathlatex', function(e) {
         e.stopPropagation();
+        e.preventDefault();
         if (editing) {
           return;
         }

@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
-var copy = require('gulp-copy');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var zip    = require('gulp-zip');
@@ -67,8 +66,8 @@ gulp.task('build:copy_mathquill', function() {
     .pipe(gulp.dest('./build/js/tinymce/plugins/mobileequationeditor/'))
   gulp.src('./mathquill/build/mathquill.css')
     .pipe(gulp.dest('./build/js/tinymce/plugins/mobileequationeditor/'))
-  gulp.src(['./mathquill/build/fonts/.*'])
-      .pipe(copy('./build/js/tinymce/plugins/mobileequationeditor/fonts/'));
+  gulp.src(['./mathquill/build/fonts/**/*'])
+      .pipe(gulp.dest('./build/js/tinymce/plugins/mobileequationeditor/fonts/'));
 });
 
 gulp.task('build:zip', function() {
@@ -113,8 +112,6 @@ gulp.task('debug:copy_mathquill', function() {
     .pipe(gulp.dest('./build/js/tinymce/plugins/mobileequationeditor/'))
   gulp.src('./mathquill/build/mathquill.css')
     .pipe(gulp.dest('./build/js/tinymce/plugins/mobileequationeditor/'))
-  gulp.src(['./mathquill/build/fonts/.*'])
-      .pipe(copy('./build/js/tinymce/plugins/mobileequationeditor/fonts/'));
 });
 
 gulp.task('build:copy_tinymce', function() {

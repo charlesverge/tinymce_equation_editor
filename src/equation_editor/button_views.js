@@ -74,7 +74,7 @@ Cls = (EquationEditor.Buttons.MenuButtonView = class MenuButtonView extends Equa
   template() {
     return `\
     <div class="${this.className}">
-      <button type="button" class="btn btn-lg btn-outline-dark math-render" title="${this.buttonText}" data-menuname="${this.options.menuname}">${this.buttonText}</button>
+      <a tabindex="0" class="btn btn-lg btn-outline-dark math-render" title="${this.buttonText}" data-menuname="${this.options.menuname}">${this.buttonText}</button>
     </div>\
 `;
   }

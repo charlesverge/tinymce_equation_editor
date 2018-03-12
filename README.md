@@ -8,7 +8,7 @@ Mobile Equation Editor plugin for [TinyMCE](http://www.tinymce.com/) that uses [
 
 ## How do I use it?
 
-Refer to [example/example.html](example/example.html) for an example. Note that if you have the repository cloned locally and want to see it in action, you'll need to have it running in a server (i.e. `cd tinymce_mobileequationeditor`; `python -m SimpleHTTPServer` and then going to http://localhost:8000/example/example.html)
+Refer to [example/example.html](example/example.html) for an example. Note that if you have the repository cloned locally and want to see it in action, you'll need to have it running in a server (i.e. `cd tinymce_mobileequationeditor`; `python -m SimpleHTTPServer` or `python3 -m http.server` and then going to http://localhost:8000/example/example.html)
 
 Download [tinymce\_equation\_editor.zip](build/tinymce_equation_editor.zip).
 

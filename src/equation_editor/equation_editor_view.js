@@ -38,10 +38,19 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
       this.Events.on('latex:keystroke', this.handleKeystrokeButton, this);
       this.Events.on('latex:menu', this.handleMenuButton, this);
       this.find('.math').on('keypress', this.keystrokeEvent.bind(this));
-      this.find('.eq-delete').on('click', this.deleteEvent.bind(this));
+      this.find('.eq-delete').on('click', this.handleDeleteButton.bind(this));
       if (!this.options.inline) {
+        this.find('.eq-insert').on('click', this.handleInsertButton.bind(this));
         this.find('.eq-close').parent().hide();
       }
+      // Close popovers if another element is clicked.
+      $(document).on('mouseup', function (e) {
+          var container = $(".popover");
+          if (!container.is(e.target)
+             && container.has(e.target).length === 0) {
+              container.popover("hide");
+          }
+      });
       return this.Events.on('latex:write', this.handleWriteButton, this);
     }
 
@@ -167,22 +176,29 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
     addMenuPopover() {
       var mainmenu = new EquationMainMenu(this, this.config['mainMenu']);
       this.find('.eq-menu').popover({
-        content: function (attached) {
-          return mainmenu.popover(attached);
+        content: function () {
+          return mainmenu.render();
         },
         html: true
       });
+      this.addSubMenuPopover();
+    }
 
-      for (var k in this.config['subMenus']) {
-        if (this.config['subMenus'][k].title) {
-          var submenu = new EquationSubMenu(this, this.config['subMenus'][k]);
-          this.find('button[data-menuname="'+k+'"]').popover({
-            content: function (attached) {
-              return submenu.popover(attached)
-            },
-            html: true,
-            title: this.config['subMenus'][k].title
-          });
+    addSubMenuPopover() {
+      window.eq = this;
+      for (var sub in this.config.subMenus) {
+        $('.eq-menu-'+sub).popover({
+          content: function () {
+            return this.showmenu.render();
+          },
+          trigger: 'click',
+          html: true,
+          title: this.config.subMenus[sub].title
+        });
+        var menus = this.find('.eq-menu-'+sub).toArray();
+        for (var i = 0; i < menus.length; i++) {
+          var submenu = new EquationSubMenu(this, this.config.subMenus[sub]);
+          menus[i].showmenu = submenu;
         }
       }
     }
@@ -211,6 +227,7 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
       }});
       this.mathfield = MQ.MathField(this.find('.math').get()[0]);
       this.mathfield.latex(this.existingLatex);
+      $('body').scrollTop(0);
       this.mathfield.focus();
       return true;
     }
@@ -221,7 +238,7 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
       this.existingLatex = this.mathfield.latex();
       this.find('.keyboard').show();
       this.find('.math').get()[0].innerHTML = '';
-      MQ.config({ 
+      MQ.config({
         substituteTextarea: function() {
             let div = document.createElement('div');
             div.innerHTML = '<span tabindex=0></span>';
@@ -229,16 +246,21 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
           }
       });
       this.mathfield = MQ.MathField(this.find('.math').get()[0]);
-      this.mathfield.latex(this.existingLatex); 
-      //this.find('.math').on('keypress', this.keystrokeEvent.bind(this));
+      this.mathfield.latex(this.existingLatex);
       this.mathfield.focus();
       return true;
     }
 
-    deleteEvent(e) {
+    handleDeleteButton(e) {
       e.preventDefault();
       e.stopPropagation();
       return this.mathfield.keystroke('Backspace');
+    }
+
+    handleInsertButton(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      return this.performKeystroke('InsertFormula');
     }
 
     handleTypedTextButton(typedtext) {
@@ -275,7 +297,7 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
       if (latex == 'InsertFormula') {
           const latex = this.mathfield.latex();
           var div = this.$el.get()[0];
-          if (div.parentNode) {
+          if (this.options.inline && div.parentNode) {
             div.parentNode.removeChild(div);
           }
           $('.popover').remove();
@@ -293,7 +315,12 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
         this.performKeystroke('InsertFormula');
       } else {
         // This allows a physical keyboard connected to a mobile device to continue to work.
-        this.mathfield.typedText(e.key);
+        if (e.key) {
+          this.mathfield.typedText(e.key);
+        } else if (e.which) {
+          // Ios does not have e.key completed.
+          this.mathfield.typedText(String.fromCharCode(e.which));
+        }
       }
       return true;
     }

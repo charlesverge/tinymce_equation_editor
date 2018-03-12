@@ -1,7 +1,11 @@
+.btn {
+  cursor: pointer;
+}
+
 @media (max-width: 800px) {
   .equation-editor div.mx-1 {
-    margin-left: 0.1rem !important;
-    margin-right: 0.1rem !important;
+    margin-left: 0rem !important;
+    margin-right: 0rem !important;
   }
 }
 
@@ -14,13 +18,20 @@
   .equation-editor .math-render.btn {
     padding: 0;
     margin: 0;
-  }
+}
 
-  .equation-editor button.oversized {
+  .equation-editor button.oversized, .equation-editor a.oversized {
     font-size: 0.7em;
     width: 95%;
     height: 95%;
   }
+
+    .equation-editor div.col {
+    margin-left: 2px !important;
+    margin-right: 1px !important;
+  }
+
+
 }
 
 @media (max-width: 400px) {
@@ -60,7 +71,7 @@
 }
 
 
-.equation-editor button.math-render {
+.equation-editor button.math-render, .equation-editor a.math-render {
   width: 95%;
   height: 95%;
 }
@@ -105,11 +116,11 @@
     box-sizing: border-box;
 }
 
-.equation-editor button.math-render {
-  height: 3rem;
+.equation-editor button.math-render, .equation-editor a.math-render {
+    height: 3rem;
 }
 
-.equation-editor .oversizedcenter button {
+.equation-editor .oversizedcenter button, .equation-editor .oversizedcenter a {
   padding: 0;
 }
 
@@ -117,26 +128,31 @@
   width: 15px;
 }
 
-.equation-editor div.smbtn button  {
+.equation-editor div.smbtn button, .equation-editor div.smbtn a {
   font-size: 0.8rem;
   padding: 0;
 }
 
-.equation-editor div.xsmbtn button  {
+.equation-editor div.xsmbtn button, .equation-editor div.xsmbtn a  {
   font-size: 0.6rem;
   padding: 0;
+}
+
+.equation-editor div.xsmbtn button[data-menuname], .equation-editor div.eq-submenu a[data-menuname] {
+  padding: 0.7rem 0 0 0;
 }
 
 .btn-submenu {
   width: 100%;
 }
 
-.popover .oversizedcenter button span.mq-root-block {
+.popover .oversizedcenter button span.mq-root-block, .popover .oversizedcenter a span.mq-root-block {
   overflow: visible;
 }
 
-.equation-editor div.oversized button {
+.equation-editor div.oversized button, .equation-editor div.oversized a {
   padding: 0 !important;
+    font-size: 1rem;
 }
 
 .equation-editor .eq-delete {
@@ -146,3 +162,4 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+

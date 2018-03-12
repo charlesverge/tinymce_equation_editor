@@ -314,7 +314,7 @@ Cls = EquationEditor.Buttons.MenuButtonView = function (_EquationEditor$Butto5) 
   }, {
     key: 'template',
     value: function template() {
-      return '    <div class="' + this.className + '">\n      <button type="button" class="btn btn-lg btn-outline-dark math-render" title="' + this.buttonText + '" data-menuname="' + this.options.menuname + '">' + this.buttonText + '</button>\n    </div>';
+      return '    <div class="' + this.className + '">\n      <a tabindex="0" class="btn btn-lg btn-outline-dark math-render" title="' + this.buttonText + '" data-menuname="' + this.options.menuname + '">' + this.buttonText + '</button>\n    </div>';
     }
   }], [{
     key: 'initClass',
@@ -505,10 +505,18 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
         this.Events.on('latex:keystroke', this.handleKeystrokeButton, this);
         this.Events.on('latex:menu', this.handleMenuButton, this);
         this.find('.math').on('keypress', this.keystrokeEvent.bind(this));
-        this.find('.eq-delete').on('click', this.deleteEvent.bind(this));
+        this.find('.eq-delete').on('click', this.handleDeleteButton.bind(this));
         if (!this.options.inline) {
+          this.find('.eq-insert').on('click', this.handleInsertButton.bind(this));
           this.find('.eq-close').parent().hide();
         }
+        // Close popovers if another element is clicked.
+        $(document).on('mouseup', function (e) {
+          var container = $(".popover");
+          if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.popover("hide");
+          }
+        });
         return this.Events.on('latex:write', this.handleWriteButton, this);
       }
     }, {
@@ -585,22 +593,30 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
       value: function addMenuPopover() {
         var mainmenu = new EquationMainMenu(this, this.config['mainMenu']);
         this.find('.eq-menu').popover({
-          content: function content(attached) {
-            return mainmenu.popover(attached);
+          content: function content() {
+            return mainmenu.render();
           },
           html: true
         });
-
-        for (var k in this.config['subMenus']) {
-          if (this.config['subMenus'][k].title) {
-            var submenu = new EquationSubMenu(this, this.config['subMenus'][k]);
-            this.find('button[data-menuname="' + k + '"]').popover({
-              content: function content(attached) {
-                return submenu.popover(attached);
-              },
-              html: true,
-              title: this.config['subMenus'][k].title
-            });
+        this.addSubMenuPopover();
+      }
+    }, {
+      key: 'addSubMenuPopover',
+      value: function addSubMenuPopover() {
+        window.eq = this;
+        for (var sub in this.config.subMenus) {
+          $('.eq-menu-' + sub).popover({
+            content: function content() {
+              return this.showmenu.render();
+            },
+            trigger: 'click',
+            html: true,
+            title: this.config.subMenus[sub].title
+          });
+          var menus = this.find('.eq-menu-' + sub).toArray();
+          for (var i = 0; i < menus.length; i++) {
+            var submenu = new EquationSubMenu(this, this.config.subMenus[sub]);
+            menus[i].showmenu = submenu;
           }
         }
       }
@@ -631,6 +647,7 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
           } });
         this.mathfield = MQ.MathField(this.find('.math').get()[0]);
         this.mathfield.latex(this.existingLatex);
+        $('body').scrollTop(0);
         this.mathfield.focus();
         return true;
       }
@@ -651,16 +668,22 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
         });
         this.mathfield = MQ.MathField(this.find('.math').get()[0]);
         this.mathfield.latex(this.existingLatex);
-        //this.find('.math').on('keypress', this.keystrokeEvent.bind(this));
         this.mathfield.focus();
         return true;
       }
     }, {
-      key: 'deleteEvent',
-      value: function deleteEvent(e) {
+      key: 'handleDeleteButton',
+      value: function handleDeleteButton(e) {
         e.preventDefault();
         e.stopPropagation();
         return this.mathfield.keystroke('Backspace');
+      }
+    }, {
+      key: 'handleInsertButton',
+      value: function handleInsertButton(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return this.performKeystroke('InsertFormula');
       }
     }, {
       key: 'handleTypedTextButton',
@@ -704,7 +727,7 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
         if (latex == 'InsertFormula') {
           var _latex = this.mathfield.latex();
           var div = this.$el.get()[0];
-          if (div.parentNode) {
+          if (this.options.inline && div.parentNode) {
             div.parentNode.removeChild(div);
           }
           $('.popover').remove();
@@ -723,7 +746,12 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
           this.performKeystroke('InsertFormula');
         } else {
           // This allows a physical keyboard connected to a mobile device to continue to work.
-          this.mathfield.typedText(e.key);
+          if (e.key) {
+            this.mathfield.typedText(e.key);
+          } else if (e.which) {
+            // Ios does not have e.key completed.
+            this.mathfield.typedText(String.fromCharCode(e.which));
+          }
         }
         return true;
       }
@@ -786,32 +814,52 @@ var EquationMainMenu = function () {
   }
 
   _createClass(EquationMainMenu, [{
-    key: 'popover',
-    value: function popover(attached) {
-      this.equationview.find('.popover').remove();
+    key: 'render',
+    value: function render() {
       var div = $('<div></div>');
       for (var k in this.menu) {
         var row = $('<div class="row mt-1"></div>');
+        div.append(row);
         for (var c in this.menu[k]) {
           var m = this.menu[k][c];
           if (this.equationview.config.subMenus && this.equationview.config.subMenus[m].title) {
-            row.append($('<div class="col-6"><button type="button" class="btn btn-sm btn-submenu btn-secondary" data-menuname="' + m + '">' + this.equationview.config.subMenus[m].shorttitle + '</button></div>'));
-            var submenu = new EquationSubMenu(this.equationview, this.equationview.config.subMenus[m]);
-            row.find('button[data-menuname="' + m + '"]').popover({
-              content: function content() {
-                return this.showmenu.popover();
-              },
-              trigger: 'focus',
-              html: true,
-              title: this.equationview.config.subMenus[m].title
-            });
-            row.find('button[data-menuname="' + m + '"]').get()[0].showmenu = submenu;
+            var button = '<div class="col-6">';
+            button += '<a tabindex="0" class="btn btn-sm btn-submenu btn-secondary" ';
+            button += 'data-menuname="' + m + '" title="' + this.equationview.config.subMenus[m].title + '"';
+            button += '>' + this.equationview.config.subMenus[m].shorttitle + '</a></div>';
+            row.append($(button));
           }
         }
-        div.append(row);
       }
 
+      this.renderSubMenus(div);
       return div;
+    }
+  }, {
+    key: 'renderSubMenus',
+    value: function renderSubMenus(target) {
+      var menus = target.find('a[data-menuname]').toArray();
+      for (var i = 0; i < menus.length; i++) {
+        var sub = menus[i].getAttribute('data-menuname');
+        if (sub) {
+          var submenus = target.find('a[data-menuname="' + sub + '"]').toArray();
+          for (var j = 0; j < menus.length; j++) {
+            if ($(submenus[j]).data("bs.popover")) {
+              continue;
+            }
+            $(submenus[j]).popover({
+              content: function content() {
+                return this.showmenu.render();
+              },
+              trigger: 'click',
+              html: true,
+              title: this.equationview.config.subMenus[sub].title
+            });
+            var submenu = new EquationSubMenu(this.equationview, this.equationview.config.subMenus[sub]);
+            menus[i].showmenu = submenu;
+          }
+        }
+      }
     }
   }]);
 
@@ -827,8 +875,8 @@ var EquationSubMenu = function () {
   }
 
   _createClass(EquationSubMenu, [{
-    key: 'popover',
-    value: function popover(attached) {
+    key: 'render',
+    value: function render() {
       var div = $('<div></div>');
       this.addButtons(div);
       return div;
