@@ -58,7 +58,7 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
       return `
         <div class="container py-3">
           <div class="row">
-            <div class="col-4 col-sm-4 mathquill-container">
+            <div class="col-12 col-sm-12 mathquill-container">
               <div class="math"></div>
             </div>
           </div>
@@ -121,7 +121,7 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
         this.addButtonBar();
         this.addMenuPopover();
         return this.enableMathMagic();
-      }).error(function (e) {
+      }).fail(function (e) {
         console.log('config.json parse error');
         console.log(e);
       });

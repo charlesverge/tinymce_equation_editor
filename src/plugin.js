@@ -55,7 +55,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
 
       if (editor.settings.equationeditor_inline) {
         var div = $('<div></div>');
-        div.addClass('fixedbottom equation-editor');
+        div.addClass('equation-editor fixedbottom');
         $('body').append(div);
         var equationEditor = new EquationEditor.EquationEditorView(null, {
           $el: $(div),
@@ -145,7 +145,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
 
     editor.on('init', () => {
       // Chrome on android rarely fires the click event but always the touchend.
-      $(editor.getDoc()).on('touchend', 'span.mathlatex', function (e) {
+      $(editor.getElement()).on('touchend', 'span.mathlatex', function (e) {
         e.stopPropagation();
         e.preventDefault();
         if (editing) {
@@ -156,7 +156,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
         return editor.execCommand('mceMathquill', latex);
       });
 
-      $(editor.getDoc()).on('click', 'span.mathlatex', function(e) {
+      $(editor.getElement()).on('click', 'span.mathlatex', function(e) {
         e.stopPropagation();
         e.preventDefault();
         if (editing) {

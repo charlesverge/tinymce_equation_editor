@@ -18,6 +18,7 @@ gulp.task('build:plugin', function() {
             './src/plugin.js'
     ])
     .pipe(babel({
+            babelrc: false,
             presets: ['env']
         }))
     //.pipe(uglify())
@@ -38,6 +39,7 @@ gulp.task('build:plugin', function() {
             './src/equation_editor/menu.js'
     ])
     .pipe(babel({
+            babelrc: false,
             presets: ['env']
         }))
     //.pipe(uglify())
@@ -97,6 +99,7 @@ gulp.task('debug:plugin', function() {
             './src/plugin.js'
     ])
     .pipe(babel({
+            babelrc: false,
             presets: ['env']
         }))
     //.pipe(uglify())
