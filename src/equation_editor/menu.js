@@ -41,7 +41,8 @@ class EquationMainMenu {
               },
               trigger: 'click',
               html: true,
-              title: this.equationview.config.subMenus[sub].title
+              title: this.equationview.config.subMenus[sub].title,
+              container: 'body',
             });
             var submenu = new EquationSubMenu(this.equationview, this.equationview.config.subMenus[sub]);
             menus[i].showmenu = submenu;

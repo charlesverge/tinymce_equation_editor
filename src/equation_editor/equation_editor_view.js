@@ -179,7 +179,8 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
         content: function () {
           return mainmenu.render();
         },
-        html: true
+        html: true,
+        container: 'body'
       });
       this.addSubMenuPopover();
     }
@@ -193,7 +194,8 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
           },
           trigger: 'click',
           html: true,
-          title: this.config.subMenus[sub].title
+          title: this.config.subMenus[sub].title,
+          container: 'body'
         });
         var menus = this.find('.eq-menu-'+sub).toArray();
         for (var i = 0; i < menus.length; i++) {

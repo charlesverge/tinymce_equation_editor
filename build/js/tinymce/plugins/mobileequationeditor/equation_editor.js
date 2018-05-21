@@ -522,7 +522,7 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
     }, {
       key: 'template',
       value: function template() {
-        return '\n        <div class="container py-3">\n          <div class="row">\n            <div class="col-4 col-sm-4 mathquill-container">\n              <div class="math"></div>\n            </div>\n          </div>\n        </div>\n        <div class="container keyboard">\n          <div class="row no-gutters button-bar-0"></div>\n          <div class="row no-gutters">\n            <div class="col-sm-3 col-3 mt-1">\n              <div class="row no-gutters button-bar-1-0 mt-1 mr-1"></div>\n              <div class="row no-gutters button-bar-2-0 mt-1 mr-1"></div>\n              <div class="row no-gutters button-bar-3-0 mt-1 mr-1"></div>\n              <div class="row no-gutters button-bar-4-0 mt-1 mr-1"></div>\n            </div>\n            <div class="col-sm-7 col-7 mt-1">\n              <div class="row no-gutters button-bar-1-1 mt-1"></div>\n              <div class="row no-gutters button-bar-2-1 mt-1"></div>\n              <div class="row no-gutters button-bar-3-1 mt-1"></div>\n              <div class="row no-gutters button-bar-4-1 mt-1"></div>\n            </div>\n            <div class="col-sm-2 col-2 mt-1">\n              <div class="row no-gutters mt-1">\n                <div class="col">\n                  <button type="button" class="btn btn-secondary eq-delete std3hw"></button>\n                </div>\n              </div>\n              <div class="row no-gutters mt-1">\n                <div class="col">\n                  <button type="button" class="btn btn-secondary eq-menu std3hw">Menu</button>\n                </div>\n              </div>\n              <div class="row no-gutters mt-1">\n                <div class="col" style="height: 3em">\n                </div>\n              </div>\n              <div class="row no-gutters mt-1">\n                <div class="col">\n                  <button class="btn btn-outline-dark math-render std3hw eq-insert" title="return">\\hookleftarrow</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class="container bottombtns">\n          <div class="row  mt-1">\n            <div class="col-6">\n              <button type="button" class="btn btn-primary eq-symbols float-left mr-1" title="Symbols">Symbols</button>\n            </div>\n            <div class="col-6 float-right">\n              <button type="button" class="btn btn-primary eq-insert float-right mr-1" title="Insert">Insert</button>\n              <button type="button" class="btn btn-secondary eq-close float-right mr-1" title="Close">Close</button>\n            </div>\n          </div>\n        </div>\n        ';
+        return '\n        <div class="container py-3">\n          <div class="row">\n            <div class="col-12 col-sm-12 mathquill-container">\n              <div class="math"></div>\n            </div>\n          </div>\n        </div>\n        <div class="container keyboard">\n          <div class="row no-gutters button-bar-0"></div>\n          <div class="row no-gutters">\n            <div class="col-sm-3 col-3 mt-1">\n              <div class="row no-gutters button-bar-1-0 mt-1 mr-1"></div>\n              <div class="row no-gutters button-bar-2-0 mt-1 mr-1"></div>\n              <div class="row no-gutters button-bar-3-0 mt-1 mr-1"></div>\n              <div class="row no-gutters button-bar-4-0 mt-1 mr-1"></div>\n            </div>\n            <div class="col-sm-7 col-7 mt-1">\n              <div class="row no-gutters button-bar-1-1 mt-1"></div>\n              <div class="row no-gutters button-bar-2-1 mt-1"></div>\n              <div class="row no-gutters button-bar-3-1 mt-1"></div>\n              <div class="row no-gutters button-bar-4-1 mt-1"></div>\n            </div>\n            <div class="col-sm-2 col-2 mt-1">\n              <div class="row no-gutters mt-1">\n                <div class="col">\n                  <button type="button" class="btn btn-secondary eq-delete std3hw"></button>\n                </div>\n              </div>\n              <div class="row no-gutters mt-1">\n                <div class="col">\n                  <button type="button" class="btn btn-secondary eq-menu std3hw">Menu</button>\n                </div>\n              </div>\n              <div class="row no-gutters mt-1">\n                <div class="col" style="height: 3em">\n                </div>\n              </div>\n              <div class="row no-gutters mt-1">\n                <div class="col">\n                  <button class="btn btn-outline-dark math-render std3hw eq-insert" title="return">\\hookleftarrow</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class="container bottombtns">\n          <div class="row  mt-1">\n            <div class="col-6">\n              <button type="button" class="btn btn-primary eq-symbols float-left mr-1" title="Symbols">Symbols</button>\n            </div>\n            <div class="col-6 float-right">\n              <button type="button" class="btn btn-primary eq-insert float-right mr-1" title="Insert">Insert</button>\n              <button type="button" class="btn btn-secondary eq-close float-right mr-1" title="Close">Close</button>\n            </div>\n          </div>\n        </div>\n        ';
       }
     }, {
       key: 'render',
@@ -534,7 +534,7 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
           _this2.addButtonBar();
           _this2.addMenuPopover();
           return _this2.enableMathMagic();
-        }).error(function (e) {
+        }).fail(function (e) {
           console.log('config.json parse error');
           console.log(e);
         });
@@ -596,7 +596,8 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
           content: function content() {
             return mainmenu.render();
           },
-          html: true
+          html: true,
+          container: 'body'
         });
         this.addSubMenuPopover();
       }
@@ -611,7 +612,8 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
             },
             trigger: 'click',
             html: true,
-            title: this.config.subMenus[sub].title
+            title: this.config.subMenus[sub].title,
+            container: 'body'
           });
           var menus = this.find('.eq-menu-' + sub).toArray();
           for (var i = 0; i < menus.length; i++) {
@@ -853,7 +855,8 @@ var EquationMainMenu = function () {
               },
               trigger: 'click',
               html: true,
-              title: this.equationview.config.subMenus[sub].title
+              title: this.equationview.config.subMenus[sub].title,
+              container: 'body'
             });
             var submenu = new EquationSubMenu(this.equationview, this.equationview.config.subMenus[sub]);
             menus[i].showmenu = submenu;

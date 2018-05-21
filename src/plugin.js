@@ -145,7 +145,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
 
     editor.on('init', () => {
       // Chrome on android rarely fires the click event but always the touchend.
-      $(editor.getElement()).on('touchend', 'span.mathlatex', function (e) {
+      $(editor.getBody()).on('touchend', 'span.mathlatex', function (e) {
         e.stopPropagation();
         e.preventDefault();
         if (editing) {
@@ -156,7 +156,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
         return editor.execCommand('mceMathquill', latex);
       });
 
-      $(editor.getElement()).on('click', 'span.mathlatex', function(e) {
+      $(editor.getBody()).on('click', 'span.mathlatex', function(e) {
         e.stopPropagation();
         e.preventDefault();
         if (editing) {
@@ -166,8 +166,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
         const latex = clean($(this).find('.mq-selectable').text());
         return editor.execCommand('mceMathquill', latex);
       });
-    }
-    );
+    });
 
     // Add button to tool bar.
     editor.addButton('mobileequationeditor', {
@@ -202,7 +201,13 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
       if (mathquills.length > 0) {
         let result = [];
         for (let i = 0; i < mathquills.length; i++) {
-          result[i] = MQ.StaticMath(mathquills[i]);
+          if ($(mathquills[i]).find('.mq-selectable').length) {
+            result[i] = MQ.StaticMath(mathquills[i]).reflow();
+          } else {
+              // MathQuill does not support \mathbb{}.
+              mathquills[i].innerHTML = mathquills[i].innerHTML.replace(/mathbb{([A-Za-z0-9]+)}/, '$1');
+              result[i] = MQ.StaticMath(mathquills[i]).reflow();
+          }
         }
         return result;
       }

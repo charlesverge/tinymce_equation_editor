@@ -104,14 +104,14 @@
   padding: 0;
 }
 
-.fixedbottom {
+.equation-editor.fixedbottom {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 100%;
     padding: 5px;
-    z-index: 1000;
+    z-index: 65540;
     background: white;
     box-sizing: border-box;
 }
@@ -163,3 +163,10 @@
   background-position: center;
 }
 
+.equation-editor .math {
+  width: 100%;
+}
+
+.popover {
+  z-index: 65541;
+}

@@ -166,3 +166,7 @@
 .equation-editor .math {
   width: 100%;
 }
+
+.popover {
+  z-index: 65541;
+}
