@@ -60,6 +60,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
         var equationEditor = new EquationEditor.EquationEditorView(null, {
           $el: $(div),
           existingLatex: existing_latex,
+          restrictions: top.tinymce.equationEditorRestrictions,
           editor: editor,
           inline: true
         }).render();
@@ -124,7 +125,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
     editor.addCommand('mceMathquillInsert', function(latex) {
       if (!latex) { return; }
 
-      const content = `<span class="mathlatex">${latex}</span>`;
+      const content = `&nbsp;<span class="mathlatex">${latex}</span>&nbsp;`;
 
       if (editing) {
         editor.selection.select(editing);
