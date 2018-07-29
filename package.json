@@ -1,6 +1,6 @@
 {
   "name": "tinymce_mobileequationeditor",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Charles Verge",
   "description": "A TinyMCE plugin for editing equations using Mathquill with a Mobile interface",
   "license": "MIT",
@@ -9,20 +9,20 @@
     "url": "https://github.com/charlesverge/tinymce_mobileequationeditor.git"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "bootstrap": "^4.0.0",
+    "babel-preset-env": "^1.7.0",
+    "bootstrap": "^4.1.3",
     "detect-mobile-browser": "^5.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
     "gulp-concat": ">=2.3.4",
     "gulp-copy": "^1.1.0",
-    "gulp-uglify": ">=0.3.1",
-    "gulp-zip": ">=2.0.1",
+    "gulp-uglify": "^3.0.1",
+    "gulp-zip": "^4.2.0",
     "mathquill": "^0.10.1-a",
-    "popper.js": "^1.12.9",
-    "tinymce": "^4.7.9"
+    "popper.js": "^1.14.3",
+    "tinymce": "^4.8.1"
   },
   "dependencies": {}
 }
