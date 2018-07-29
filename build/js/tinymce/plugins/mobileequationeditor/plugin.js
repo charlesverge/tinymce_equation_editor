@@ -514,7 +514,7 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
         $(document).on('mouseup', function (e) {
           var container = $(".popover");
           if (!container.is(e.target) && container.has(e.target).length === 0) {
-            container.popover("hide");
+            $(container).popover("hide");
           }
         });
         return this.Events.on('latex:write', this.handleWriteButton, this);
@@ -592,7 +592,7 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
       key: 'addMenuPopover',
       value: function addMenuPopover() {
         var mainmenu = new EquationMainMenu(this, this.config['mainMenu']);
-        this.find('.eq-menu').popover({
+        $(this.find('.eq-menu')).popover({
           content: function content() {
             return mainmenu.render();
           },
@@ -970,7 +970,6 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
         var equationEditor = new EquationEditor.EquationEditorView(null, {
           $el: $(div),
           existingLatex: existing_latex,
-          restrictions: top.tinymce.equationEditorRestrictions,
           editor: editor,
           inline: true
         }).render();

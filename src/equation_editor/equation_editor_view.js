@@ -48,7 +48,7 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
           var container = $(".popover");
           if (!container.is(e.target)
              && container.has(e.target).length === 0) {
-              container.popover("hide");
+              $(container).popover("hide");
           }
       });
       return this.Events.on('latex:write', this.handleWriteButton, this);
@@ -175,7 +175,7 @@ const ButtonGroup = EquationEditor.ButtonGroupView;
 
     addMenuPopover() {
       var mainmenu = new EquationMainMenu(this, this.config['mainMenu']);
-      this.find('.eq-menu').popover({
+      $(this.find('.eq-menu')).popover({
         content: function () {
           return mainmenu.render();
         },

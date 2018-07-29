@@ -60,7 +60,6 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
         var equationEditor = new EquationEditor.EquationEditorView(null, {
           $el: $(div),
           existingLatex: existing_latex,
-          restrictions: top.tinymce.equationEditorRestrictions,
           editor: editor,
           inline: true
         }).render();
