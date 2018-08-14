@@ -1,6 +1,6 @@
 {
   "name": "tinymce_mobileequationeditor",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "author": "Charles Verge",
   "description": "A TinyMCE plugin for editing equations using Mathquill with a Mobile interface",
   "license": "MIT",

@@ -514,7 +514,7 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
         $(document).on('mouseup', function (e) {
           var container = $(".popover");
           if (!container.is(e.target) && container.has(e.target).length === 0) {
-            $(container).popover("hide");
+            container.popover("hide");
           }
         });
         return this.Events.on('latex:write', this.handleWriteButton, this);
@@ -970,6 +970,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
         var equationEditor = new EquationEditor.EquationEditorView(null, {
           $el: $(div),
           existingLatex: existing_latex,
+          restrictions: top.tinymce.equationEditorRestrictions,
           editor: editor,
           inline: true
         }).render();
@@ -1030,7 +1031,7 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
         return;
       }
 
-      var content = '<span class="mathlatex">' + latex + '</span>';
+      var content = '&nbsp;<span class="mathlatex">' + latex + '</span>&nbsp;';
 
       if (editing) {
         editor.selection.select(editing);

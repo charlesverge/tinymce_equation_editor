@@ -514,7 +514,7 @@ var ButtonGroup = EquationEditor.ButtonGroupView;
         $(document).on('mouseup', function (e) {
           var container = $(".popover");
           if (!container.is(e.target) && container.has(e.target).length === 0) {
-            $(container).popover("hide");
+            container.popover("hide");
           }
         });
         return this.Events.on('latex:write', this.handleWriteButton, this);

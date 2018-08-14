@@ -191,7 +191,9 @@ tinymce.create('tinymce.plugins.EquationEditorPlugin', {
 
     // Before SetContent is called before the html is inserted into the dom.
     editor.on('BeforeSetContent', function(ed) {
-      ed.content = processContent(ed.content);
+      if (ed.content) {
+        ed.content = processContent(ed.content);
+      }
     });
 
     // Use mathquill-rendered-latex when setting the contents of the document.
